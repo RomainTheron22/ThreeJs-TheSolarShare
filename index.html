@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE SOLAR SHARE - Three.js</title>
+
+    <!-- Import the css file -->
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+    <!-- You can change 0.160.0 to any other availble Three.js version to match your requirements -->
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+            }
+        }
+    </script>
+</head>
+<body>
+    <!-- This canvas is the one you will use to display your Three.js code. -->
+    <div id="loading">LOADING</div>
+    <canvas id="canvas"></canvas>
+
+    <!-- Slider container moved outside the canvas -->
+    <div id="slider-container">
+        <div class="info-icon">
+            i
+            <div class="tooltip">
+                Vous pouvez ajuster les différents paramètres de culture de la spiruline, tels que la température, la luminosité, et le pH, pour influencer le rendement et la qualité de la culture.<br><br>
+                La teinte de l'aquarium s'adapte pour refléter la densité de la spiruline.<br><br>
+                <strong>Paramètres Optimaux :</strong><br>
+                - Température : 30-35 °C<br>
+                - Luminosité : 3000-5000 lux<br>
+                - pH : 9-10<br>
+            </div>
+        </div>
+        
+        <div id="tooltip" style="display: none; position: absolute; background-color: rgba(0, 0, 0, 0.7); color: white; padding: 10px; border-radius: 5px; font-size: 14px; z-index: 10;">
+            Structure Info: Survoler pour plus d'informations
+        </div>
+
+        <label for="slider1">Temperature </label>
+        <input type="range" id="slider1" min="20" max="40" value="30" step="2">
+        <span id="temp-value">30 °C</span>
+        
+        <label for="slider2">Luminosity</label>
+        <input type="range" id="slider2" min="0" max="10000" value="3000" step="100">
+        <span id="lux-value">3000 lux</span>
+        
+        <label for="slider3">pH :</label>
+        <input type="range" id="slider3" min="0" max="14" value="9" step="1">
+        <span id="ph-value">9</span>
+
+        <label id="spirulina-saturation">Spirulina Saturation: 1000 mg/L</label>
+    </div>
+    
+    <div id="labels-container"></div>
+    <div id="button-container">
+        <button id="change-params">
+            <span>Change Parameters</span>
+        </button>
+    </div>
+    
+    <script type="x-shader/x-vertex" id="vertexshader">
+
+        varying vec2 vUv;
+
+        void main() {
+
+            vUv = uv;
+
+            gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+
+        }
+
+    </script>
+
+    <script type="x-shader/x-fragment" id="fragmentshader">
+
+        uniform sampler2D baseTexture;
+        uniform sampler2D bloomTexture;
+
+        varying vec2 vUv;
+
+        void main() {
+
+            gl_FragColor = ( texture2D( baseTexture, vUv ) + vec4( 1.0 ) * texture2D( bloomTexture, vUv ) );
+
+        }
+
+    </script>
+
+    <!-- <p>test</p> -->
+
+    <!-- The import should happen after creating the other HTML elements since you will be importing them -->
+    <script type="module" src="./script.js"></script>
+</body>
+</html>
