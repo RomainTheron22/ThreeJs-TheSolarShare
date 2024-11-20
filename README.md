@@ -28,7 +28,7 @@ The interactive 3D visualization allows users to engage with the key concepts of
 To get started, clone the repository from GitHub:
 
 ```bash
-git clone https://github.com/VotreNomGitHub/ThreeJS-TheSolarShare.git
+git clone https://github.com/RomainTheron22/ThreeJS-TheSolarShare.git
 ```
 
 ### **2. Navigate to the Project Directory**
